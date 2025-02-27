@@ -18,6 +18,9 @@ with Path("project.d/cc-ctx.json").open() as fd_in:
     CFG["pkg_idx_user"] = CFG["PYPI_USER"]
     CFG["pkg_idx_passwd"] = CFG["PYPI_PASSWD"]
 
+    if CFG.get("enable_gitflow", False):
+        REMOTE_BRANCHES.extend(["develop"])
+
 
 @task
 def bumpversion(ctx, part):
@@ -51,16 +54,18 @@ def init(ctx):
     if not Path(".gitignore").exists():
         raise Failure(".gitignore file not found")
 
+    is_new = False
     if not Path(".git").exists():
+        is_new = True
         ctx.run("git init")
         ctx.run(f"git remote add origin {CFG['scm_repo_url']}")
         ctx.run("git add .")
         ctx.run('git commit -m "Initial commit from jjstout/cc-py-pkg template"')
 
-        if CFG.get("enable_gitflow", False):
-            REMOTE_BRANCHES.extend(["develop"])
-            ctx.run("git flow init -d")
+    if CFG.get("enable_gitflow", False):
+        ctx.run("git flow init -d")
     
+    if is_new:
         for branch in REMOTE_BRANCHES:
             ctx.run(f"git push -u origin {branch}")
 
