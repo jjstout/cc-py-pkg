@@ -1,0 +1,15 @@
+{
+      "full_name": "John Doe"
+    , "email": "user@example.com"
+    , "project_name": "My Project"
+    , "project_short_description": "A short description of my project"
+    , "version": "0.0.0"
+    , "enable_gitflow": true
+    , "enable_cli": true
+    , "scm_url": "https://github.com"
+    , "scm_username": "user"
+    , "scm_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}"
+    , "pkg_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"
+    , "scm_repo_url": "{{ cookiecutter.scm_url }}/{{ cookiecutter.scm_username }}/{{ cookiecutter.scm_slug }}.git"
+    , "scm_issue_url": "{{ cookiecutter.scm_url }}/{{ cookiecutter.scm_username }}/{{ cookiecutter.scm_slug }}/issues"
+}
