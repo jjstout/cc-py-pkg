@@ -8,10 +8,12 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "loguru>=0.7.3",
+    "typer>=0.15.1",
 ]
 
 [project.scripts]
-{{cookiecutter.scm_slug}} = "{{cookiecutter.pkg_slug}}:main"
+{{cookiecutter.scm_slug}} = "{{cookiecutter.pkg_slug}}.cli:app"
 
 [build-system]
 requires = ["hatchling"]
