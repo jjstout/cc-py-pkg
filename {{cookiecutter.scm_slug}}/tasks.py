@@ -90,8 +90,8 @@ def push(ctx):
 @task
 def test(ctx):
     """Run the project tests."""
-    ctx.run("pytest tests/")
     ctx.run("ty check src/")
+    ctx.run("pytest tests/")
     
 
 @task(clean)

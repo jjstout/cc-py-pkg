@@ -9,8 +9,10 @@ LOG_LEVELS = ["WARNING", "INFO", "DEBUG", "TRACE"]
 
 app = typer.Typer()
 
+
 def version_callback(value: bool):
     from . import __VERSION__
+    
     if value:
         typer.echo(f"Version: {__VERSION__}")
         raise typer.Exit()
@@ -24,8 +26,7 @@ def main(
         typer.Option("--version", callback=version_callback, is_eager=True),
     ] = None,
     quite: Annotated[bool, typer.Option("--quite", "-q", help="Suppress log messages")] = False,
-    ) -> None:
-  
+) -> None:  
     logger.remove(0)  # Remove default configuration
     
     if not quite:
@@ -45,7 +46,7 @@ def main(
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt Received")
     
-    except Exception as err:
+    except Exception:
         exit_code = 1
         logger.opt(exception=sys.exc_info()).critical(f"Unhandled Exception")
         
