@@ -1,10 +1,11 @@
 """CLI for {{cookiecutter.pkg_slug}} tool."""
+
 import sys
+from typing import Optional
 
 import typer
 from loguru import logger
-from typing import Optional
-from typing_extensions import Annotated 
+from typing_extensions import Annotated
 
 LOG_LEVELS = ["WARNING", "INFO", "DEBUG", "TRACE"]
 
@@ -14,7 +15,7 @@ app = typer.Typer()
 def version_callback(value: bool):
     """Print version information and exit."""
     from . import __VERSION__
-    
+
     if value:
         typer.echo(f"Version: {__VERSION__}")
         raise typer.Exit()
@@ -36,23 +37,24 @@ def main(
         logger.add(
             sys.stderr,
             format="<level>{level: <8}</level> | <level>{message}</level>",
-            level=LOG_LEVELS[verbose], 
-            backtrace=False, 
-            diagnose=True
-            )
+            level=LOG_LEVELS[verbose],
+            backtrace=False,
+            diagnose=True,
+        )
     
     exit_code = 0
 
     try:
-        print("Hello World from {{cookiecutter.pkg_slug}}!")
-    
+        print("Hello World from cc_test_3!")
+
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt Received")
-    
+
     except Exception:
         exit_code = 1
-        logger.opt(exception=sys.exc_info()).critical(f"Unhandled Exception")
-        
+        logger.opt(exception=sys.exc_info()).critical("Unhandled Exception")
+
     finally:
         logger.info("Finally block - Exiting program")
-        sys.exit(exit_code) # Set exit code for shell tests.
+        sys.exit(exit_code)  # Set exit code for shell tests.
+        
