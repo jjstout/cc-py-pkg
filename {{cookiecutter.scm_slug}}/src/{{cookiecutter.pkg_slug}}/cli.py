@@ -1,3 +1,4 @@
+"""CLI for {{cookiecutter.pkg_slug}} tool."""
 import sys
 
 import typer
@@ -11,6 +12,7 @@ app = typer.Typer()
 
 
 def version_callback(value: bool):
+    """Print version information and exit."""
     from . import __VERSION__
     
     if value:
@@ -26,7 +28,8 @@ def main(
         typer.Option("--version", callback=version_callback, is_eager=True),
     ] = None,
     quite: Annotated[bool, typer.Option("--quite", "-q", help="Suppress log messages")] = False,
-) -> None:  
+) -> None:
+    """Entry point for the {{cookiecutter.pkg_slug}} tool."""
     logger.remove(0)  # Remove default configuration
     
     if not quite:
