@@ -9,12 +9,12 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "loguru>=0.7.3",
-    {% if cookiecutter.enable_cli -%}
+    {% if cookiecutter.project_type == "tool" -%}
     "typer>=0.16.0",
     {% endif -%}
 ]
 
-{% if cookiecutter.enable_cli -%}
+{% if cookiecutter.project_type == "tool" -%}
 [project.scripts]
 {{cookiecutter.scm_slug}} = "{{cookiecutter.pkg_slug}}.cli:app"
 {%- endif %}
