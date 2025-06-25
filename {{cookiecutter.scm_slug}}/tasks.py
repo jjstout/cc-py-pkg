@@ -72,7 +72,7 @@ def init(ctx):
 
 @task
 def lint(ctx):
-    """Format and lint the project code."""
+    """Run code style and quality checks."""
     ctx.run("ruff format src/")
     ctx.run("ruff check --fix src/")
     ctx.run("pydocstyle src/")
