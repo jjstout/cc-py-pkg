@@ -14,10 +14,10 @@ app = typer.Typer()
 
 def version_callback(value: bool):
     """Print version information and exit."""
-    from . import __VERSION__
+    from . import __version__
 
     if value:
-        typer.echo(f"Version: {__VERSION__}")
+        typer.echo(f"Version: {__version__}")
         raise typer.Exit()
 
 
