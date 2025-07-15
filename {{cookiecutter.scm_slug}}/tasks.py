@@ -27,7 +27,7 @@ def bumpversion(ctx, part):
     """Bump the version number, by major, minor or patch/hotfix"""
     part = "patch" if part == "hotfix" else part
 
-    ctx.run(f"uv run bump-my-version bump {part}")
+    ctx.run(f"bump-my-version bump {part}")
     ctx.run(f"uv lock --upgrade-package {CFG['scm_slug']}")
 
 
@@ -72,10 +72,10 @@ def init(ctx):
 
 @task
 def lint(ctx):
-    """Format and lint the project code."""
-    ctx.run("uv run ruff format src/")
-    ctx.run("uv run ruff check --fix src/")
-    ctx.run("uv run pydocstyle src/")
+    """Run code style and quality checks."""
+    ctx.run("ruff format src/")
+    ctx.run("ruff check --fix src/")
+    ctx.run("pydocstyle src/")
 
 
 @task
@@ -90,8 +90,8 @@ def push(ctx):
 @task
 def test(ctx):
     """Run the project tests."""
-    ctx.run("uv run pytest src/")
-    ctx.run("uv run mypy src/")
+    ctx.run("ty check src/")
+    ctx.run("pytest tests/")
     
 
 @task(clean)
@@ -103,12 +103,13 @@ def build(ctx):
 @task(build)
 def release(ctx):
     """Release the project."""
-    ctx.run(
-        f"""uv run twine upload --repository-url {CFG['pkg_idx_url']} \
-                                --username {CFG['pkg_idx_user']} \
-                                --password {CFG['pkg_idx_passwd']} \
-                                dist/*"""
-    )
+    if CFG.get("enable_publish", False):
+        ctx.run(
+            f"""uv run twine upload --repository-url {CFG['pkg_idx_url']} \
+                                    --username {CFG['pkg_idx_user']} \
+                                    --password {CFG['pkg_idx_passwd']} \
+                                    dist/*"""
+        )
 
 
 ns = Collection(build, bumpversion, clean, init, lint, push, release, test)

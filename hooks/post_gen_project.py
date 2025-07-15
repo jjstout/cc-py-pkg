@@ -7,5 +7,5 @@ ctx_out.parent.mkdir(parents=True, exist_ok=True)
 with ctx_out.open("w") as fd_out:
     fd_out.write("""{{ cookiecutter | jsonify }}\n""")
 
-if '{{ cookiecutter.enable_cli}}' == "False":
+if '{{ cookiecutter.project_type}}' == "package":
     Path("src/{{ cookiecutter.pkg_slug }}/cli.py").unlink()
