@@ -45,7 +45,7 @@ def main(
     exit_code = 0
 
     try:
-        print("Hello World from cc_test_3!")
+        print("Hello World from {{cookiecutter.scm_slug}}!")
 
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt Received")
