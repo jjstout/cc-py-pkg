@@ -14,9 +14,9 @@ with Path("project.d/cc-ctx.json").open() as fd_in:
     }
 
     CFG = CFG | CC_CTX
-    CFG["pkg_idx_url"] = CFG["PYPI_URL"]
-    CFG["pkg_idx_user"] = CFG["PYPI_USER"]
-    CFG["pkg_idx_passwd"] = CFG["PYPI_PASSWD"]
+    CFG["pkg_idx_url"] = CFG.get("PYPI_URL", None)
+    CFG["pkg_idx_user"] = CFG.get("PYPI_USER", None)
+    CFG["pkg_idx_passwd"] = CFG.get("PYPI_PASSWD", None)
 
     if CFG.get("enable_gitflow", False):
         REMOTE_BRANCHES.extend(["develop"])
